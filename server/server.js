@@ -22,6 +22,14 @@ app.use("/api/product", productRoutes);
 app.use("/uploads", express.static("uploads"));
 app.use("/api/filter", filterRoutes);
 
+app.use(function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
+  next();
+});
 connectDB();
 
 const port = process.env.PORT || 5000;
