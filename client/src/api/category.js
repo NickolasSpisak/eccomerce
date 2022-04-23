@@ -1,6 +1,6 @@
 import axios from "axios";
 const API = axios.create({
-  baseURL: "https://nickspisak-backend-project.herokuapp.com/",
+  baseURL: "https://nickspisak-eccomerce.herokuapp.com/",
 });
 
 API.interceptors.request.use((req) => {
