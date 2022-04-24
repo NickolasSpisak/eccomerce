@@ -2,13 +2,13 @@ const Product = require("../models/Product");
 const fs = require("fs");
 
 exports.create = async (req, res) => {
+  const { filename } = req.file;
   const {
     productName,
     productDesc,
     productPrice,
     productCategory,
     productQty,
-    filename,
   } = req.body;
 
   try {
@@ -82,13 +82,13 @@ exports.read = async (req, res) => {
 exports.update = async (req, res) => {
   const productId = req.params.productId;
 
-  if (req.body !== undefined) {
+  if (req.file !== undefined) {
     req.body.fileName = req.file.filename;
   }
 
   const oldProduct = await Product.findByIdAndUpdate(productId, req.body);
 
-  if (req.file !== undefined && req.body.filename !== oldProduct.fileName) {
+  if (req.file !== undefined && req.file.filename !== oldProduct.fileName) {
     fs.unlink(`uploads/${oldProduct.fileName}`, (err) => {
       if (err) throw err;
       console.log("Image deleted from the filesystem");
